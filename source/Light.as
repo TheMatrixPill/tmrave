@@ -5,8 +5,8 @@ class Light {
   int maxDegrees;
   int direction = 0;
   float stepSize = 1;
-  int currentStep = 0;
-  int speed = 2;
+  float currentAngle = 0;
+  float speed = 2;
 
   Light(const vec2&in orig, int minDeg, int maxDeg, int direction = 0){
     generateColor();
@@ -15,14 +15,12 @@ class Light {
     maxDegrees = maxDeg;
     this.direction = direction;
     if(direction == 1){
-      currentStep = 360;
+      currentAngle = maxDeg;
     }
-    stepSize = (maxDeg - minDeg) / 360.0;
-
   }
 
   void Draw(){
-    float angle = Math::ToRad(stepSize * currentStep + minDegrees);
+    float angle = Math::ToRad(currentAngle);
 
     nvg::BeginPath();
     nvg::ResetTransform();
@@ -42,29 +40,29 @@ class Light {
 
   void Move() {
     if(direction == 0){
-      currentStep += speed;
+      currentAngle += speed;
     }
     else{
-      currentStep -= speed;
+      currentAngle -= speed;
     }
-    if(currentStep > 360){
+    if(currentAngle > maxDegrees){
       direction = 1;
       generateColor();
-      currentStep = 360;
+      currentAngle = maxDegrees;
     }
-    if(currentStep < 0) {
+    if(currentAngle < minDegrees) {
       direction = 0;
       generateColor();
-      currentStep = 0;
+      currentAngle = minDegrees;
     }
   }
 
   vec2 GetUpperVec(){
-    return vec2(GetDiag(), -200);
+    return vec2(GetDiag(), -LightWidth);
   }
 
   vec2 GetLowerVec(){
-    return vec2(GetDiag(), 200);
+    return vec2(GetDiag(), LightWidth);
   }
 
   void generateColor() {

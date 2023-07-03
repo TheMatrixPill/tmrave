@@ -19,13 +19,19 @@ void GenerateLights(){
       int dir = 0;
       if(RandomStartDirection)
         dir = Math::Rand(0,2);
-      lights.InsertLast(Light(vec2(i * stepSize, -10), 0, 90, dir));
+      int end = 90;
+      if(FirstAndLast180)
+        end = 180;
+      lights.InsertLast(Light(vec2(i * stepSize, -10), 0, end, dir));
     }
     else if(i == cnt - 1){
       int dir = 1;
       if(RandomStartDirection)
         dir = Math::Rand(0,2);
-      lights.InsertLast(Light(vec2(i * stepSize, -10), 90, 180, dir));
+      int start = 90;
+      if(FirstAndLast180)
+        start = 0;
+      lights.InsertLast(Light(vec2(i * stepSize, -10), start, 180, dir));
     }
     else{
       int dir = 0;
