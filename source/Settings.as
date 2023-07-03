@@ -1,4 +1,4 @@
-[Setting category="Lights" name="Count of lights" drag min=1 max=10]
+[Setting category="Lights" name="Count of lights" drag min=0 max=10]
 uint LightCount = 2;
 
 [Setting category="Lights" name="Make individual lightspeed random on direction change" description="The Speed setting below will be taken as a max speed" ]
